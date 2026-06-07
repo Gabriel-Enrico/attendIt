@@ -1,18 +1,18 @@
 package attendIt.controller;
 
-import attendIt.model.Tecnico;
-import attendIt.service.TecnicoService;
+import attendIt.model.Usuario;
+import attendIt.service.UsuarioService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TecnicoController {
+public class UsuarioController {
 
-    private final TecnicoService service = new TecnicoService();
+    private final UsuarioService service = new UsuarioService();
 
-    public boolean cadastrar(Tecnico t, StringBuilder mensagem) {
+    public boolean cadastrar(Usuario u, StringBuilder mensagem) {
         try {
-            service.cadastrar(t);
-            mensagem.append("Técnico cadastrado com sucesso!");
+            service.cadastrar(u);
+            mensagem.append("Usuário cadastrado com sucesso!");
             return true;
         } catch (IllegalArgumentException e) {
             mensagem.append("Erro de validação: ").append(e.getMessage());
@@ -23,28 +23,19 @@ public class TecnicoController {
         }
     }
 
-    public List<Tecnico> listarTodos(StringBuilder mensagem) {
+    public List<Usuario> listarTodos(StringBuilder mensagem) {
         try {
             return service.listarTodos();
         } catch (SQLException e) {
-            mensagem.append("Erro ao carregar técnicos: ").append(e.getMessage());
+            mensagem.append("Erro ao carregar usuários: ").append(e.getMessage());
             return List.of();
         }
     }
 
-    public List<Tecnico> listarDisponiveis(StringBuilder mensagem) {
+    public boolean atualizar(Usuario u, StringBuilder mensagem) {
         try {
-            return service.listarDisponiveis();
-        } catch (SQLException e) {
-            mensagem.append("Erro ao carregar técnicos: ").append(e.getMessage());
-            return List.of();
-        }
-    }
-
-    public boolean atualizar(Tecnico t, StringBuilder mensagem) {
-        try {
-            service.atualizar(t);
-            mensagem.append("Técnico #").append(t.getId()).append(" atualizado.");
+            service.atualizar(u);
+            mensagem.append("Usuário #").append(u.getId()).append(" atualizado.");
             return true;
         } catch (IllegalArgumentException e) {
             mensagem.append("Erro de validação: ").append(e.getMessage());
@@ -58,7 +49,7 @@ public class TecnicoController {
     public boolean excluir(int id, StringBuilder mensagem) {
         try {
             service.excluir(id);
-            mensagem.append("Técnico excluído.");
+            mensagem.append("Usuário excluído.");
             return true;
         } catch (IllegalArgumentException e) {
             mensagem.append(e.getMessage());
